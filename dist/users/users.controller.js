@@ -15,46 +15,52 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersController = void 0;
 const common_1 = require("@nestjs/common");
 const user_entity_1 = require("./user.entity");
-const users = [
-    {
-        id: 0,
-        lastname: 'Doe',
-        firstname: 'John'
-    }
-];
+const users_service_1 = require("./users.service");
 let UsersController = class UsersController {
+    constructor(usersService) {
+        this.usersService = usersService;
+    }
     create(input) {
-        const { id, lastname, firstname } = input;
-        const newUser = new user_entity_1.User(users.length + 1, lastname, firstname);
-        users.push(newUser);
-        return newUser;
+        try {
+            const { lastname, firstname, age } = input;
+            if (!lastname || !firstname || !age) {
+                throw new common_1.HttpException('Missing required fields', common_1.HttpStatus.BAD_REQUEST);
+            }
+            return this.usersService.create(input.lastname, input.firstname, input.age);
+        }
+        catch (error) {
+            throw new common_1.HttpException(error.message, common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     getAll() {
-        return users;
+        return this.usersService.getAll();
     }
     getById(id) {
-        return users.find(user => user.id === +id);
+        try {
+            const user = this.usersService.getById(id);
+            if (!user) {
+                throw new common_1.HttpException(`User with ID ${id} not found`, common_1.HttpStatus.NOT_FOUND);
+            }
+            return user;
+        }
+        catch (error) {
+            throw new common_1.HttpException(error.message, common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     updateById(id, input) {
-        const userToUpdate = users.find(user => user.id === +id);
-        if (!userToUpdate) {
-            return null;
+        try {
+            const user = this.usersService.updateById(id, input);
+            if (!user) {
+                throw new common_1.HttpException(`User with ID ${id} not found`, common_1.HttpStatus.NOT_FOUND);
+            }
+            return user;
         }
-        if (input.lastname !== undefined) {
-            userToUpdate.lastname = input.lastname;
+        catch (error) {
+            throw new common_1.HttpException(error.message, common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        if (input.firstname !== undefined) {
-            userToUpdate.firstname = input.firstname;
-        }
-        return userToUpdate;
     }
     deleteById(id) {
-        const index = users.findIndex(user => user.id === +id);
-        if (index === -1) {
-            throw new common_1.HttpException(`Could not find a user with the id ${id}`, common_1.HttpStatus.NOT_FOUND);
-        }
-        users.splice(index, 1);
-        return true;
+        return this.usersService.deleteById(id);
     }
 };
 exports.UsersController = UsersController;
@@ -94,6 +100,7 @@ __decorate([
     __metadata("design:returntype", Boolean)
 ], UsersController.prototype, "deleteById", null);
 exports.UsersController = UsersController = __decorate([
-    (0, common_1.Controller)('users')
+    (0, common_1.Controller)('users'),
+    __metadata("design:paramtypes", [users_service_1.UsersService])
 ], UsersController);
 //# sourceMappingURL=users.controller.js.map
