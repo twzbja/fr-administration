@@ -70,6 +70,6 @@ export class UsersController {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     */
-   return this.usersService.deleteById(id);
+    return this.usersService.deleteById(id);
     }
 }

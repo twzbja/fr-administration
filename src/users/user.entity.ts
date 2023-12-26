@@ -12,5 +12,5 @@ export class User {
       this.firstname = firstname;
       this.age = age;
     }
-  }
+}
   
