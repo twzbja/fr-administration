@@ -15,7 +15,7 @@ export class UsersService {
 
 // Créer
      create(lastname: string, firstname: string, age: number): User {
-        const newUser = new User(this.users.length + 1, lastname, firstname, age); // Gestion de l'ID (auto-incrémentation)
+        const newUser = new User(this.users.length, lastname, firstname, age); // Gestion de l'ID (auto-incrémentation)
         this.users.push(newUser); // Ajout de l'utilisateur à la "base de données"
         return newUser; // Retourne le nouvel utilisateur créé
     }

@@ -20,9 +20,9 @@ export class AssociationsController {
 
     // Créer une nouvelle association
     @Post()
-    createAssociation(@Body() body: Association): Association {
-        const { id, idUsers, name } = body;
-        return this.associationsService.createAssociation(id, idUsers, name);
+    async createAssociation(@Body() input: Partial<Association> ): Promise<Association> {
+        const {idUsers, name } = input;
+        return await this.associationsService.createAssociation(idUsers, name);
     }
 
     // Mettre à jour une association par son ID

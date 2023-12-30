@@ -21,7 +21,7 @@ let UsersService = class UsersService {
         ];
     }
     create(lastname, firstname, age) {
-        const newUser = new user_entity_1.User(this.users.length + 1, lastname, firstname, age);
+        const newUser = new user_entity_1.User(this.users.length, lastname, firstname, age);
         this.users.push(newUser);
         return newUser;
     }

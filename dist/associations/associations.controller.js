@@ -26,9 +26,9 @@ let AssociationsController = class AssociationsController {
     getAssociationById(id) {
         return this.associationsService.getAssociationById(id);
     }
-    createAssociation(body) {
-        const { id, idUsers, name } = body;
-        return this.associationsService.createAssociation(id, idUsers, name);
+    async createAssociation(input) {
+        const { idUsers, name } = input;
+        return await this.associationsService.createAssociation(idUsers, name);
     }
     updateAssociationById(id, body) {
         return this.associationsService.updateAssociationById(id, body);
@@ -58,8 +58,8 @@ __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [associations_entity_1.Association]),
-    __metadata("design:returntype", associations_entity_1.Association)
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
 ], AssociationsController.prototype, "createAssociation", null);
 __decorate([
     (0, common_1.Put)(':id'),
