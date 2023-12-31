@@ -1,13 +1,15 @@
-// entity Associations
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm';
+import { User } from '../users/user.entity';
 
+@Entity()
 export class Association {
-    id: number;
-    idUsers: number[];
-    name: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    constructor(id: number, idUsers: number[], name: string) {
-        this.id = id;
-        this.idUsers = idUsers;
-        this.name = name;
-    }
+  @ManyToMany(() => User)
+  @JoinTable()
+  users: User[];
+
+  @Column()
+  name: string;
 }
