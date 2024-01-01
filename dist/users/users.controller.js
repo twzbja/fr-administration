@@ -14,30 +14,29 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersController = void 0;
 const common_1 = require("@nestjs/common");
-const user_entity_1 = require("./user.entity");
 const users_service_1 = require("./users.service");
 let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
     }
-    create(input) {
+    async create(input) {
         try {
             const { lastname, firstname, age } = input;
             if (!lastname || !firstname || !age) {
                 throw new common_1.HttpException('Missing required fields', common_1.HttpStatus.BAD_REQUEST);
             }
-            return this.usersService.create(input.lastname, input.firstname, input.age);
+            return await this.usersService.create(input.lastname, input.firstname, +input.age);
         }
         catch (error) {
             throw new common_1.HttpException(error.message, common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    getAll() {
-        return this.usersService.getAll();
+    async getAll() {
+        return await this.usersService.getAll();
     }
-    getById(id) {
+    async getById(id) {
         try {
-            const user = this.usersService.getById(id);
+            const user = await this.usersService.getById(id);
             if (!user) {
                 throw new common_1.HttpException(`User with ID ${id} not found`, common_1.HttpStatus.NOT_FOUND);
             }
@@ -47,9 +46,9 @@ let UsersController = class UsersController {
             throw new common_1.HttpException(error.message, common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    updateById(id, input) {
+    async updateById(id, input) {
         try {
-            const user = this.usersService.updateById(id, input);
+            const user = await this.usersService.updateById(id, input);
             if (!user) {
                 throw new common_1.HttpException(`User with ID ${id} not found`, common_1.HttpStatus.NOT_FOUND);
             }
@@ -59,8 +58,17 @@ let UsersController = class UsersController {
             throw new common_1.HttpException(error.message, common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    deleteById(id) {
-        return this.usersService.deleteById(id);
+    async deleteById(id) {
+        try {
+            const userDeleted = await this.usersService.deleteById(id);
+            if (!userDeleted) {
+                throw new common_1.HttpException(`User with ID ${id} not found`, common_1.HttpStatus.NOT_FOUND);
+            }
+            return userDeleted;
+        }
+        catch (error) {
+            throw new common_1.HttpException(error.message, common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 };
 exports.UsersController = UsersController;
@@ -69,20 +77,20 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", user_entity_1.User)
+    __metadata("design:returntype", Promise)
 ], UsersController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Array)
+    __metadata("design:returntype", Promise)
 ], UsersController.prototype, "getAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", user_entity_1.User)
+    __metadata("design:returntype", Promise)
 ], UsersController.prototype, "getById", null);
 __decorate([
     (0, common_1.Put)(':id'),
@@ -90,14 +98,14 @@ __decorate([
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, Object]),
-    __metadata("design:returntype", user_entity_1.User)
+    __metadata("design:returntype", Promise)
 ], UsersController.prototype, "updateById", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", Boolean)
+    __metadata("design:returntype", Promise)
 ], UsersController.prototype, "deleteById", null);
 exports.UsersController = UsersController = __decorate([
     (0, common_1.Controller)('users'),

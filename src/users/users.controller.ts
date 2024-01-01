@@ -5,35 +5,34 @@ import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
-
     constructor(private readonly usersService: UsersService) {}
 
-// La création
+    // Create a user
     @Post()
-    create(@Body() input: Partial<User>): User {
+    async create(@Body() input: Partial<User>): Promise<User> {
         try {
             const { lastname, firstname, age } = input;
             if (!lastname || !firstname || !age) {
                 throw new HttpException('Missing required fields', HttpStatus.BAD_REQUEST);
             }
 
-            return this.usersService.create(input.lastname, input.firstname, input.age);
+            return await this.usersService.create(input.lastname, input.firstname, +input.age);
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-// Récupérer tout
+    // Get all users
     @Get()
-    getAll(): User[] {
-        return this.usersService.getAll();
+    async getAll(): Promise<User[]> {
+        return await this.usersService.getAll();
     }
 
-// Recupérer un élément
+    // Get just one user by id
     @Get(':id')
-    getById(@Param('id') id: number): User {
+    async getById(@Param('id') id: number): Promise<User> {
         try {
-            const user = this.usersService.getById(id);
+            const user = await this.usersService.getById(id);
             if (!user) {
                 throw new HttpException(`User with ID ${id} not found`, HttpStatus.NOT_FOUND);
             }
@@ -43,11 +42,11 @@ export class UsersController {
         }
     }
 
-//Mise à jour
+    // Update the content of user
     @Put(':id')
-    updateById(@Param('id') id: number, @Body() input: Partial<User>): User {
+    async updateById(@Param('id') id: number, @Body() input: Partial<User>): Promise<User> {
         try {
-            const user = this.usersService.updateById(id, input);
+            const user = await this.usersService.updateById(id, input);
             if (!user) {
                 throw new HttpException(`User with ID ${id} not found`, HttpStatus.NOT_FOUND);
             }
@@ -57,19 +56,17 @@ export class UsersController {
         }
     }
 
-// Supprimer
+    // Delete a user
     @Delete(':id')
-    deleteById(@Param('id') id: number): boolean {
-     /*   try {
-            const user = this.usersService.deleteById(id);
-            if (!user) {
+    async deleteById(@Param('id') id: number): Promise<boolean> {
+        try {
+            const userDeleted = await this.usersService.deleteById(id);
+            if (!userDeleted) {
                 throw new HttpException(`User with ID ${id} not found`, HttpStatus.NOT_FOUND);
             }
-            return user;
+            return userDeleted;
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    */
-    return this.usersService.deleteById(id);
     }
 }

@@ -10,6 +10,7 @@ export class UsersService {
         @InjectRepository(User)
         private userRepository: Repository<User>,
     ){}
+    
 
     // Créer un nouvel utilisateur
     public async create(lastname: string, firstname: string, age: number): Promise<User> {

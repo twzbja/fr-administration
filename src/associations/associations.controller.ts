@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Param, Body, HttpException, HttpStatus } from '@nestjs/common';
 import { AssociationsService } from './associations.service';
 import { Association } from './associations.entity';
 
@@ -6,40 +6,49 @@ import { Association } from './associations.entity';
 export class AssociationsController {
     constructor(private readonly associationsService: AssociationsService) {}
 
-    // Récupérer toutes les associations
     @Get()
-    getAllAssociations(): Association[] {
-        return this.associationsService.getAllAssociations();
+    async getAllAssociations(): Promise<Association[]> {
+        return await this.associationsService.getAllAssociations();
     }
 
-    // Récupérer une association par son ID
     @Get(':id')
-    getAssociationById(@Param('id') id: number): Association {
-        return this.associationsService.getAssociationById(id);
+    async getAssociationById(@Param('id') id: number): Promise<Association> {
+        const association = await this.associationsService.getAssociationById(id);
+        if (!association) {
+            throw new HttpException(`Association with ID ${id} not found`, HttpStatus.NOT_FOUND);
+        }
+        return association;
     }
 
-    // Créer une nouvelle association
     @Post()
-    async createAssociation(@Body() input: Partial<Association> ): Promise<Association> {
-        const {idUsers, name } = input;
-        return await this.associationsService.createAssociation(idUsers, name);
+    async createAssociation(@Body() input: Partial<Association>): Promise<Association> {
+        const { users, name } = input;
+        
+        if (!users || users.length === 0) {
+            // Gérer le cas où il n'y a pas d'utilisateurs
+            // Peut-être renvoyer une erreur ou prendre une action appropriée
+            throw new HttpException(`No user entered`, HttpStatus.NOT_FOUND);
+        }
+    
+        const userIds: number[] = users.map(user => user.id);
+    
+        return await this.associationsService.createAssociation(userIds, name);
     }
+    
 
-    // Mettre à jour une association par son ID
+
     @Put(':id')
-    updateAssociationById(@Param('id') id: number, @Body() body: Association): Association {
-        return this.associationsService.updateAssociationById(id, body);
+    async updateAssociationById(@Param('id') id: number, @Body() body: Association): Promise<Association> {
+        return await this.associationsService.updateAssociationById(id, body);
     }
 
-    // Supprimer une association par son ID
     @Delete(':id')
-    deleteAssociationById(@Param('id') id: number): boolean {
-        return this.associationsService.deleteAssociationById(id);
+    async deleteAssociationById(@Param('id') id: number): Promise<boolean> {
+        return await this.associationsService.deleteAssociationById(id);
     }
 
-    // Récupérer les membres d'une association par son ID
     @Get(':id/members')
-    getMembersByAssociationId(@Param('id') id: number): number[] {
-        return this.associationsService.getMembersByAssociationId(id);
+    async getMembersByAssociationId(@Param('id') id: number): Promise<number[]> {
+        return await this.associationsService.getMembersByAssociationId(id);
     }
 }

@@ -1,13 +1,14 @@
 import { Association } from './associations.entity';
 import { UsersService } from 'src/users/users.service';
+import { Repository } from 'typeorm';
 export declare class AssociationsService {
-    private service;
-    constructor(service: UsersService);
-    private associations;
-    getAllAssociations(): Association[];
-    getAssociationById(id: number): Association;
+    private userService;
+    private associationRepository;
+    constructor(userService: UsersService, associationRepository: Repository<Association>);
+    getAllAssociations(): Promise<Association[]>;
+    getAssociationById(id: number): Promise<Association>;
     createAssociation(idUsers: number[], name: string): Promise<Association>;
-    updateAssociationById(id: number, updatedAssociation: Association): Association;
-    deleteAssociationById(id: number): boolean;
-    getMembersByAssociationId(id: number): number[];
+    updateAssociationById(id: number, updatedAssociation: Association): Promise<Association>;
+    deleteAssociationById(id: number): Promise<boolean>;
+    getMembersByAssociationId(id: number): Promise<number[]>;
 }

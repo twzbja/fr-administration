@@ -5,56 +5,52 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersService = void 0;
 const common_1 = require("@nestjs/common");
 const user_entity_1 = require("./user.entity");
+const typeorm_1 = require("@nestjs/typeorm");
+const typeorm_2 = require("typeorm");
 let UsersService = class UsersService {
-    constructor() {
-        this.users = [
-            {
-                id: 0,
-                lastname: 'Doe',
-                firstname: 'John',
-                age: 23
-            }
-        ];
+    constructor(userRepository) {
+        this.userRepository = userRepository;
     }
-    create(lastname, firstname, age) {
-        const newUser = new user_entity_1.User(this.users.length, lastname, firstname, age);
-        this.users.push(newUser);
-        return newUser;
+    async create(lastname, firstname, age) {
+        const newUser = this.userRepository.create({ lastname, firstname, age });
+        return this.userRepository.save(newUser);
     }
-    getAll() {
-        return this.users;
+    async getAll() {
+        return this.userRepository.find();
     }
-    getById(id) {
-        return this.users.find(user => user.id === +id);
+    async getById(id) {
+        const user = await this.userRepository.findOne({ where: { id } });
+        if (!user) {
+        }
+        return user;
     }
-    updateById(id, input) {
-        const userToUpdate = this.users.find(user => user.id === +id);
+    async updateById(id, input) {
+        const userToUpdate = await this.userRepository.findOne({ where: { id } });
         if (!userToUpdate) {
-            return null;
+            throw new common_1.NotFoundException(`User with ID ${id} not found`);
         }
-        if (input.lastname !== undefined) {
-            userToUpdate.lastname = input.lastname;
-        }
-        if (input.firstname !== undefined) {
-            userToUpdate.firstname = input.firstname;
-        }
-        return userToUpdate;
+        Object.assign(userToUpdate, input);
+        return this.userRepository.save(userToUpdate);
     }
-    deleteById(id) {
-        const index = this.users.findIndex(user => user.id === +id);
-        if (index === -1) {
-            return false;
-        }
-        this.users.splice(index, 1);
-        return true;
+    async deleteById(id) {
+        const result = await this.userRepository.delete(id);
+        return result.affected > 0;
     }
 };
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([
-    (0, common_1.Injectable)()
+    (0, common_1.Injectable)(),
+    __param(0, (0, typeorm_1.InjectRepository)(user_entity_1.User)),
+    __metadata("design:paramtypes", [typeorm_2.Repository])
 ], UsersService);
 //# sourceMappingURL=users.service.js.map

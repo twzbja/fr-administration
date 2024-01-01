@@ -13,3 +13,4 @@ export class Association {
   @Column()
   name: string;
 }
+

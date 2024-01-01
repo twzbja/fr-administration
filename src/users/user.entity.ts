@@ -1,6 +1,7 @@
 // user.entity.ts
 
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Association } from '../associations/associations.entity';
 
 @Entity()
 export class User {
@@ -14,5 +15,8 @@ export class User {
   firstname: string;
 
   @Column()
-  age: number;
+  age: Number;
+
+  @ManyToOne(() => Association, association => association.users)
+  association: Association;
 }

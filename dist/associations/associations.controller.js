@@ -20,24 +20,32 @@ let AssociationsController = class AssociationsController {
     constructor(associationsService) {
         this.associationsService = associationsService;
     }
-    getAllAssociations() {
-        return this.associationsService.getAllAssociations();
+    async getAllAssociations() {
+        return await this.associationsService.getAllAssociations();
     }
-    getAssociationById(id) {
-        return this.associationsService.getAssociationById(id);
+    async getAssociationById(id) {
+        const association = await this.associationsService.getAssociationById(id);
+        if (!association) {
+            throw new common_1.HttpException(`Association with ID ${id} not found`, common_1.HttpStatus.NOT_FOUND);
+        }
+        return association;
     }
     async createAssociation(input) {
-        const { idUsers, name } = input;
-        return await this.associationsService.createAssociation(idUsers, name);
+        const { users, name } = input;
+        if (!users || users.length === 0) {
+            throw new common_1.HttpException(`No user entered`, common_1.HttpStatus.NOT_FOUND);
+        }
+        const userIds = users.map(user => user.id);
+        return await this.associationsService.createAssociation(userIds, name);
     }
-    updateAssociationById(id, body) {
-        return this.associationsService.updateAssociationById(id, body);
+    async updateAssociationById(id, body) {
+        return await this.associationsService.updateAssociationById(id, body);
     }
-    deleteAssociationById(id) {
-        return this.associationsService.deleteAssociationById(id);
+    async deleteAssociationById(id) {
+        return await this.associationsService.deleteAssociationById(id);
     }
-    getMembersByAssociationId(id) {
-        return this.associationsService.getMembersByAssociationId(id);
+    async getMembersByAssociationId(id) {
+        return await this.associationsService.getMembersByAssociationId(id);
     }
 };
 exports.AssociationsController = AssociationsController;
@@ -45,14 +53,14 @@ __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Array)
+    __metadata("design:returntype", Promise)
 ], AssociationsController.prototype, "getAllAssociations", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", associations_entity_1.Association)
+    __metadata("design:returntype", Promise)
 ], AssociationsController.prototype, "getAssociationById", null);
 __decorate([
     (0, common_1.Post)(),
@@ -67,21 +75,21 @@ __decorate([
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, associations_entity_1.Association]),
-    __metadata("design:returntype", associations_entity_1.Association)
+    __metadata("design:returntype", Promise)
 ], AssociationsController.prototype, "updateAssociationById", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", Boolean)
+    __metadata("design:returntype", Promise)
 ], AssociationsController.prototype, "deleteAssociationById", null);
 __decorate([
     (0, common_1.Get)(':id/members'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", Array)
+    __metadata("design:returntype", Promise)
 ], AssociationsController.prototype, "getMembersByAssociationId", null);
 exports.AssociationsController = AssociationsController = __decorate([
     (0, common_1.Controller)('associations'),

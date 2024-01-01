@@ -11,14 +11,19 @@ const common_1 = require("@nestjs/common");
 const associations_controller_1 = require("./associations.controller");
 const associations_service_1 = require("./associations.service");
 const users_module_1 = require("../users/users.module");
+const typeorm_1 = require("@nestjs/typeorm");
+const associations_entity_1 = require("../associations/associations.entity");
 let AssociationsModule = class AssociationsModule {
 };
 exports.AssociationsModule = AssociationsModule;
 exports.AssociationsModule = AssociationsModule = __decorate([
     (0, common_1.Module)({
-        imports: [users_module_1.UsersModule],
+        imports: [
+            users_module_1.UsersModule,
+            typeorm_1.TypeOrmModule.forFeature([associations_entity_1.Association]),
+        ],
         controllers: [associations_controller_1.AssociationsController],
-        providers: [associations_service_1.AssociationsService]
+        providers: [associations_service_1.AssociationsService],
     })
 ], AssociationsModule);
 //# sourceMappingURL=associations.module.js.map
