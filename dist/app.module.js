@@ -22,8 +22,12 @@ exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
             typeorm_1.TypeOrmModule.forRoot({
-                type: 'sqlite',
-                database: 'mydatabase.db',
+                type: 'mysql',
+                host: 'localhost',
+                port: 3306,
+                username: 'root',
+                password: 'password',
+                database: 'mydatabase',
                 entities: [user_entity_1.User, associations_entity_1.Association],
                 synchronize: true,
             }),
