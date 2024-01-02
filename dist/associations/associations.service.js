@@ -33,14 +33,31 @@ let AssociationsService = class AssociationsService {
         }
         return association;
     }
-    async createAssociation(idUsers, name) {
+    async createAssociation(userIds, name) {
         const users = [];
-        for (const userId of idUsers) {
+        const userIdsSet = new Set();
+        for (const userId of userIds) {
             const user = await this.userService.getById(userId);
             if (!user) {
                 throw new common_1.NotFoundException(`Utilisateur avec l'ID ${userId} introuvable`);
             }
+            console.log("Les différents id : " + userId);
             users.push(user);
+            if (user.id !== undefined) {
+                userIdsSet.add(user.id);
+            }
+        }
+        const userIdsArray = Array.from(userIdsSet);
+        console.log("Les différents id : " + userIdsArray);
+        const existingAssociations = await this.associationRepository
+            .createQueryBuilder('association')
+            .innerJoin('association.users', 'user')
+            .where('user.id IN (:...userIds)', { userIds: userIdsArray })
+            .groupBy('association.id')
+            .having('COUNT(DISTINCT user.id) = :userCount', { userCount: userIdsArray.length })
+            .getMany();
+        if (existingAssociations.length > 0) {
+            throw new Error('Une association existe déjà pour ces utilisateurs');
         }
         const newAssociation = new associations_entity_1.Association();
         newAssociation.users = users;

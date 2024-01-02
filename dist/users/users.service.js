@@ -31,6 +31,7 @@ let UsersService = class UsersService {
     async getById(id) {
         const user = await this.userRepository.findOne({ where: { id } });
         if (!user) {
+            return null;
         }
         return user;
     }

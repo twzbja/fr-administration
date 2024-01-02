@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Association } from './associations.entity';
 import { UsersService } from 'src/users/users.service';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { User } from 'src/users/user.entity';
 
 @Injectable()
@@ -29,24 +29,49 @@ export class AssociationsService {
     }
 
     // Créer une nouvelle association
-    public async createAssociation(idUsers: number[], name: string): Promise<Association> {
+    // Créer une nouvelle association
+    public async createAssociation(userIds: number[], name: string): Promise<Association> {
+        // Récupérer tous les utilisateurs correspondant aux IDs fournis
         const users: User[] = [];
-        
-        // Récupérer chaque utilisateur correspondant à son ID
-        for (const userId of idUsers) {
+        const userIdsSet = new Set<number>(); // Utilisation d'un Set pour stocker les IDs uniques
+
+        for (const userId of userIds) {
             const user = await this.userService.getById(userId);
             if (!user) {
                 throw new NotFoundException(`Utilisateur avec l'ID ${userId} introuvable`);
             }
-            users.push(user); // Ajouter l'utilisateur à la liste
+            console.log("Les différents id : " + userId);
+            users.push(user);
+            if (user.id !== undefined) {
+                userIdsSet.add(user.id); // Ajouter l'ID à l'ensemble
+            }
+        }
+
+        // Convertir l'ensemble en tableau d'IDs
+        const userIdsArray = Array.from(userIdsSet);
+        console.log("Les différents id : " + userIdsArray);
+
+        // Récupérer les associations existantes qui contiennent TOUS les utilisateurs donnés
+        const existingAssociations = await this.associationRepository
+            .createQueryBuilder('association')
+            .innerJoin('association.users', 'user')
+            .where('user.id IN (:...userIds)', { userIds: userIdsArray })
+            .groupBy('association.id')
+            .having('COUNT(DISTINCT user.id) = :userCount', { userCount: userIdsArray.length })
+            .getMany();
+
+        if (existingAssociations.length > 0) {
+            throw new Error('Une association existe déjà pour ces utilisateurs');
         }
 
         const newAssociation = new Association();
-        newAssociation.users = users; // Assigner la liste d'utilisateurs récupérés
-        newAssociation.name = name; // Définir le nom de l'association
+        newAssociation.users = users;
+        newAssociation.name = name;
 
         return this.associationRepository.save(newAssociation);
+
     }
+
 
 
     // Mettre à jour une association par son ID

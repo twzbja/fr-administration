@@ -28,6 +28,7 @@ export class UsersService {
         const user = await this.userRepository.findOne({ where: { id } });
         if (!user) {
           // Gérer le cas où l'utilisateur n'est pas trouvé
+          return null;
         }
         return user;
     }

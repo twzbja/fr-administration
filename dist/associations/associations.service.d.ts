@@ -7,7 +7,7 @@ export declare class AssociationsService {
     constructor(userService: UsersService, associationRepository: Repository<Association>);
     getAllAssociations(): Promise<Association[]>;
     getAssociationById(id: number): Promise<Association>;
-    createAssociation(idUsers: number[], name: string): Promise<Association>;
+    createAssociation(userIds: number[], name: string): Promise<Association>;
     updateAssociationById(id: number, updatedAssociation: Association): Promise<Association>;
     deleteAssociationById(id: number): Promise<boolean>;
     getMembersByAssociationId(id: number): Promise<number[]>;
