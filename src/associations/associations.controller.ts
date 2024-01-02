@@ -1,7 +1,10 @@
 import { Controller, Get, Post, Put, Delete, Param, Body, HttpException, HttpStatus } from '@nestjs/common';
 import { AssociationsService } from './associations.service';
 import { Association } from './associations.entity';
+import { ApiTags } from '@nestjs/swagger';
+import { AssociationInput } from './association-input';
 
+@ApiTags('associations')
 @Controller('associations')
 export class AssociationsController {
     constructor(private readonly associationsService: AssociationsService) {}
@@ -21,7 +24,7 @@ export class AssociationsController {
     }
 
     @Post()
-    async createAssociation(@Body() input: Partial<Association>): Promise<Association> {
+    async createAssociation(@Body() input: AssociationInput): Promise<Association> {
         const { users, name } = input;
         
         if (!users || users.length === 0) {

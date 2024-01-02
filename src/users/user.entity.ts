@@ -2,6 +2,7 @@
 
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Association } from '../associations/associations.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity()
 export class User {
@@ -18,5 +19,6 @@ export class User {
   age: Number;
 
   @ManyToOne(() => Association, association => association.users)
+  @ApiProperty({ type: () => Association })
   association: Association;
 }

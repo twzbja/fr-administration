@@ -16,6 +16,8 @@ exports.AssociationsController = void 0;
 const common_1 = require("@nestjs/common");
 const associations_service_1 = require("./associations.service");
 const associations_entity_1 = require("./associations.entity");
+const swagger_1 = require("@nestjs/swagger");
+const association_input_1 = require("./association-input");
 let AssociationsController = class AssociationsController {
     constructor(associationsService) {
         this.associationsService = associationsService;
@@ -66,7 +68,7 @@ __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [association_input_1.AssociationInput]),
     __metadata("design:returntype", Promise)
 ], AssociationsController.prototype, "createAssociation", null);
 __decorate([
@@ -92,6 +94,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AssociationsController.prototype, "getMembersByAssociationId", null);
 exports.AssociationsController = AssociationsController = __decorate([
+    (0, swagger_1.ApiTags)('associations'),
     (0, common_1.Controller)('associations'),
     __metadata("design:paramtypes", [associations_service_1.AssociationsService])
 ], AssociationsController);

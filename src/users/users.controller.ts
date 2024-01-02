@@ -1,15 +1,20 @@
 import { Controller, Get, Post, Put, Delete, Inject, HttpException, HttpStatus, Body, Param } from '@nestjs/common';
 import { User } from './user.entity';
 import { UsersService } from './users.service';
+import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
+import { UserInput } from './user-input';
 
-
+@ApiTags('users')
 @Controller('users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 
     // Create a user
     @Post()
-    async create(@Body() input: Partial<User>): Promise<User> {
+    @ApiCreatedResponse({
+        description: 'The user has been successfully created.'
+    })
+    public async create(@Body() input: UserInput): Promise<User> {
         try {
             const { lastname, firstname, age } = input;
             if (!lastname || !firstname || !age) {
@@ -44,7 +49,7 @@ export class UsersController {
 
     // Update the content of user
     @Put(':id')
-    async updateById(@Param('id') id: number, @Body() input: Partial<User>): Promise<User> {
+    async updateById(@Param('id') id: number, @Body() input: UserInput): Promise<User> {
         try {
             const user = await this.usersService.updateById(id, input);
             if (!user) {

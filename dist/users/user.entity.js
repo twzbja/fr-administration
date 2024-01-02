@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const typeorm_1 = require("typeorm");
 const associations_entity_1 = require("../associations/associations.entity");
+const swagger_1 = require("@nestjs/swagger");
 let User = class User {
 };
 exports.User = User;
@@ -33,6 +34,7 @@ __decorate([
 ], User.prototype, "age", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => associations_entity_1.Association, association => association.users),
+    (0, swagger_1.ApiProperty)({ type: () => associations_entity_1.Association }),
     __metadata("design:type", associations_entity_1.Association)
 ], User.prototype, "association", void 0);
 exports.User = User = __decorate([

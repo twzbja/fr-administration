@@ -9,28 +9,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Association = void 0;
-const typeorm_1 = require("typeorm");
-const user_entity_1 = require("../users/user.entity");
+exports.AssociationInput = void 0;
 const swagger_1 = require("@nestjs/swagger");
-let Association = class Association {
-};
-exports.Association = Association;
+const associations_entity_1 = require("./associations.entity");
+class AssociationInput {
+}
+exports.AssociationInput = AssociationInput;
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)(),
-    __metadata("design:type", Number)
-], Association.prototype, "id", void 0);
-__decorate([
-    (0, typeorm_1.ManyToMany)(() => user_entity_1.User, user => user.association),
-    (0, swagger_1.ApiProperty)({ type: () => user_entity_1.User }),
-    (0, typeorm_1.JoinTable)(),
-    __metadata("design:type", Array)
-], Association.prototype, "users", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
+    (0, swagger_1.ApiProperty)({
+        description: 'The name of the association',
+        example: "Association Name",
+        type: String,
+    }),
     __metadata("design:type", String)
-], Association.prototype, "name", void 0);
-exports.Association = Association = __decorate([
-    (0, typeorm_1.Entity)()
-], Association);
-//# sourceMappingURL=associations.entity.js.map
+], AssociationInput.prototype, "name", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'An array of user IDs associated with the association',
+        example: [1, 2, 3],
+        type: () => associations_entity_1.Association,
+    }),
+    __metadata("design:type", Array)
+], AssociationInput.prototype, "users", void 0);
+//# sourceMappingURL=association-input.js.map

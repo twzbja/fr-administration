@@ -9,28 +9,34 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Association = void 0;
-const typeorm_1 = require("typeorm");
-const user_entity_1 = require("../users/user.entity");
+exports.UserInput = void 0;
 const swagger_1 = require("@nestjs/swagger");
-let Association = class Association {
-};
-exports.Association = Association;
+class UserInput {
+}
+exports.UserInput = UserInput;
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)(),
-    __metadata("design:type", Number)
-], Association.prototype, "id", void 0);
-__decorate([
-    (0, typeorm_1.ManyToMany)(() => user_entity_1.User, user => user.association),
-    (0, swagger_1.ApiProperty)({ type: () => user_entity_1.User }),
-    (0, typeorm_1.JoinTable)(),
-    __metadata("design:type", Array)
-], Association.prototype, "users", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
+    (0, swagger_1.ApiProperty)({
+        description: 'The firstname of the user',
+        example: "John",
+        type: String,
+    }),
     __metadata("design:type", String)
-], Association.prototype, "name", void 0);
-exports.Association = Association = __decorate([
-    (0, typeorm_1.Entity)()
-], Association);
-//# sourceMappingURL=associations.entity.js.map
+], UserInput.prototype, "firstname", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'The lastname of the user',
+        example: "Doe",
+        type: String,
+    }),
+    __metadata("design:type", String)
+], UserInput.prototype, "lastname", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'The age of the user',
+        minimum: 18,
+        default: 18,
+        type: Number,
+    }),
+    __metadata("design:type", Number)
+], UserInput.prototype, "age", void 0);
+//# sourceMappingURL=user-input.js.map
