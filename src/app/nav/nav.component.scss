@@ -1,0 +1,30 @@
+nav {
+  background-color: #512da8;
+  width: 700px;
+  border-radius: 10px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex; /* Utilisation de Flexbox */
+}
+
+li {
+  flex: 1; /* Les éléments remplissent équitablement l'espace disponible */
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  border-radius: 10px;
+  background-color: #f1750ee0;
+}

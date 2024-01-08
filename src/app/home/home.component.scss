@@ -1,0 +1,71 @@
+:host {
+  padding: 20px;
+  overflow-y: auto; /* Activation du défilement vertical si nécessaire */
+}
+
+
+/* Variables pour réutilisation */
+$primary-color: #512da8;
+$secondary-color: #f1750e;
+$border-radius: 10px;
+
+.content_home {
+  margin-top: 90px;
+}
+
+.nav_barre {
+  margin-top: 90px;
+}
+
+.cases {
+  margin-top: 90px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  text-align: center;
+  color: $primary-color;
+  margin-bottom: 20px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.cases {
+  display: flex;
+  justify-content: space-between;
+}
+
+.case {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centre le contenu horizontalement */
+
+  width: 90%;
+  height: 200px;
+  padding: 90px;
+  background-color: white;
+  border-radius: $border-radius;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: translateY(-10px);
+    background-color: #f1750ee0;
+  }
+
+  h2 {
+    font-size: 2rem;
+    color: $primary-color;
+    margin-bottom: 10px;
+    text-align: center; /* Centre le texte horizontalement */
+  }
+
+  h3 {
+    font-size: 1rem;
+    color: $secondary-color;
+    margin-bottom: 5px;
+  }
+
+}

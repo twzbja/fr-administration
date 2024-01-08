@@ -1,0 +1,89 @@
+// Styles généraux pour le composant Home
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    max-height: 80vh; // Hauteur maximale de la vue pour éviter le défilement complet de la page
+    overflow-y: auto; // Activation du défilement vertical si nécessaire
+    //background-color: #f0f0f0; // Couleur de fond légère
+  }
+  
+  // Style pour le composant de navigation (app-nav)
+  app-nav {
+    // Vos styles pour le composant de navigation ici
+  }
+  
+  .container {
+    display: grid;
+    background-color: #9ed0ff4f;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); // Affichage de maximum 4 colonnes
+    gap: 20px; // Espacement entre les cases
+    max-width: 1200px; // Largeur maximale de la grille d'utilisateurs
+    margin-top: 30px; // Marge au-dessus de la grille
+    padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-info {
+    margin-top: 50%;
+    text-align: center;
+    margin-bottom: 30px;
+  
+    .msg {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+  
+    .info_user {
+      font-size: 32px; // Taille de police plus grande pour le nom et le prénom
+      color: #ff6600; // Couleur orange pour le nom et le prénom
+      font-weight: bold;
+    }
+  }
+  
+  .case {
+
+    background-color: #fff; // Fond blanc pour chaque case utilisateur
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); // Ombre légère pour les cases utilisateur
+    text-align: center;
+    padding: 20px;
+  
+    h2 {
+        margin-top: 6%;
+      font-weight: bold;
+      font-size: 22px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+  
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      
+      li {
+        margin-bottom: 8px;
+        color: #666; // Couleur légèrement plus foncée pour les informations
+      }
+    }
+  }
+  
+  .delete-button {
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 30px;
+  
+    &:hover {
+      background-color: #ff0000;
+    }
+  }
+  

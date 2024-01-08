@@ -1,0 +1,10 @@
+<div class="container_nav_bar">
+  <nav class="nav_barre">
+          <ul>
+            <li *ngIf="isLogged"><a routerLink="/home">Accueil</a></li>
+            <li><a routerLink="/profil">Accès Profil</a></li>
+            <li><a routerLink="/rechercher">Rechercher</a></li>
+            <li *ngIf="isLogged"><a href="#" (click)="logout()">Déconnexion</a></li>
+          </ul>
+  </nav>
+</div>

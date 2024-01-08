@@ -1,0 +1,51 @@
+<app-nav [isLogged]="isLoggedIn"></app-nav>
+
+<div class="container">
+  <div class="user-info">
+    <h1 class="msg">Profil de </h1>
+    <h1 class="info_user">{{assoc.name}}</h1>
+  </div>
+
+  <div class="case">
+    <h2><strong>Nom:</strong> {{assoc.name}}</h2>
+    <h2><strong (click)="AjouterMembre()" >Membres :</strong></h2>
+    <form *ngIf="createMemberVisible" (submit)="createMember()">
+      <label for="id">Id :</label>
+      <input type="number" id="id" [(ngModel)]="newMember.idUser" name="id">
+      <button type="submit">Creer</button>
+    </form>
+
+    <ul>
+      <li *ngFor="let user of members" (click)="openUpdateForm(user)">
+        {{user.id}} / {{user.firstname}} {{user.lastname}} / {{user.role}}
+        <form *ngIf="updateFormVisible && userToUpdate == user" (submit)="updateUserRole(user)">
+          <label for="role">Modifier rôle :</label>
+          <input type="text" id="role" [(ngModel)]="newRole" name="newRole">
+          <button type="submit">Mettre à jour</button>
+        </form>
+        <form *ngIf="createFormVisible && userToUpdate == user" (submit)="createUserRole(user)">
+          <label for="role">Nouveau Rôle :</label>
+          <input type="text" id="role" [(ngModel)]="newRole" name="newRole">
+          <button type="submit">Créer</button>
+        </form>
+      </li>
+    </ul>
+    <h2><strong (click)="AjouterMinute()">Minutes :</strong></h2>
+    <ul>
+      <li *ngFor="let minute of minutes">
+        {{minute.date}} / {{minute.content}}   
+      </li>
+    </ul>
+    <form *ngIf="createMinuteVisible" (submit)="createMinute()">
+      <label for="date">Date :</label>
+      <input type="date" id="date" [(ngModel)]="newMinute.date" name="date">
+      <label for="content">Contente :</label>
+      <input type="text" id="content" [(ngModel)]="newMinute.content" name="content">
+      <label for="date">idVoters :</label>
+      <input type="text" id="idVoters" [(ngModel)]="newMinute.idVoters" name="idVoters">
+      <button type="submit">Creer</button>
+    </form>
+  </div>
+</div>
+
+<button class="delete-button" (click)="deleteAssoc()">Supprimer</button>

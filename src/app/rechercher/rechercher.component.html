@@ -1,0 +1,13 @@
+<app-nav [isLogged]="isLoggedIn"></app-nav>
+
+<form (ngSubmit)="onSubmit()">
+    <input type="text" name="userId" placeholder="Rechercher utilisateur..." [(ngModel)]="userId">
+    <button class="user-button" type="submit">Utilisateur</button>
+  </form>
+  
+  <form (ngSubmit)="onSubmitAssociation()">
+    <input type="text" name="associationId" placeholder="Rechercher association..." [(ngModel)]="associationId">
+    <button class="association-button" type="submit">Association</button>  
+  </form>
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  

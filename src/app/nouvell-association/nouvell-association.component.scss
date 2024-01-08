@@ -1,0 +1,61 @@
+// Variables
+$primary-color: #512da8;
+$secondary-color: #f1750e;
+$font-color: #333;
+$border-radius: 8px;
+
+:host {
+  padding: 20px;
+  overflow-y: auto; /* Activation du défilement vertical si nécessaire */
+}
+
+// Styles
+.user-info {
+  text-align: center;
+  margin-top: 50px;
+  
+  h1 {
+    font-size: 2.5rem;
+    color: $primary-color;
+    margin-bottom: 20px;
+  }
+}
+
+.update-form {
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  
+  label {
+    color: $font-color;
+    margin-bottom: 8px;
+  }
+  
+  input {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid $primary-color;
+    border-radius: $border-radius;
+    transition: border-color 0.3s ease;
+    
+    &:focus {
+      outline: none;
+      border-color: $secondary-color;
+    }
+  }
+  
+  button {
+    padding: 12px 20px;
+    background-color: $primary-color;
+    color: white;
+    border: none;
+    border-radius: $border-radius;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    
+    &:hover {
+      background-color: $secondary-color;
+    }
+  }
+}

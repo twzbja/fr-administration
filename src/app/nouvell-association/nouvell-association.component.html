@@ -1,0 +1,16 @@
+<app-nav [isLogged]="isLoggedIn"></app-nav>
+
+<div class="user-info">
+    <h1>Création d'un nouvelle association</h1>
+</div>
+<form class="update-form" (ngSubmit)="createAssociation()">
+    <label for="name">Nom de l'association</label>
+    <input type="text" id="name" name="name" [(ngModel)]="newAssociation.name">
+  
+    <label for="members">Membres</label>
+    <input type="text" id="members" name="members" [(ngModel)]="newAssociation.idUsers">
+    <p>Entrez les IDs des membres de l'association, séparés par des virgules</p>
+  
+    <button type="submit">Créer l'association</button>
+  </form>
+

@@ -1,0 +1,63 @@
+// Styles généraux pour le composant Home
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  max-height: 80vh;
+  overflow-y: auto;
+  
+}
+
+app-nav {
+  /* Styles pour le composant de navigation ici */
+}
+
+
+form {
+  display: flex;
+  align-items: center;
+  margin-top: 12%;
+
+  input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    width: 300px;
+    font-size: 16px;
+  }
+
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+
+    &.user-button {
+      background-color: #ff6600;
+      color: white;
+
+      &:hover {
+        background-color: #e65a00;
+      }
+    }
+
+    &.association-button {
+      background-color: #4285f4;
+      color: white;
+
+      &:hover {
+        background-color: #387ae6;
+      }
+    }
+  }
+}
+
+.error-message {
+  color: #ff0000;
+  font-size: 16px;
+  margin-top: 10px;
+}

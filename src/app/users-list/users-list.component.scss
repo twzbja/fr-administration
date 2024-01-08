@@ -1,0 +1,81 @@
+// Style pour la section principale du composant Home
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  overflow-y: auto; /* Activation du défilement vertical si nécessaire */
+}
+
+// Style pour le composant de navigation (app-nav)
+app-nav {
+  // Vos styles pour le composant de navigation ici
+}
+
+// Style pour la zone d'informations utilisateur
+.user-info {
+  margin-bottom: 20px;
+  text-align: center;
+  margin-top: 60px;
+
+  h1 {
+    font-size: 2.5rem;
+    color: #512da8;
+    margin-bottom: 10px;
+  }
+}
+
+// Style pour le bouton d'ajout d'utilisateur
+.btn-add-user {
+  background-color: #512da8;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f1750e;
+  }
+}
+
+// Style pour les cases des utilisateurs
+.cases {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px; /* Largeur maximale de la grille */
+  margin: 0 auto;
+  overflow: hidden; /* Empêcher les éléments de sortir de la grille */
+  overflow-y: auto; /* Ajout de la barre de défilement verticale si nécessaire */
+  max-height: 650px; /* Hauteur maximale de la grille pour activer la barre de défilement */
+
+  .case {
+    width: calc(25% - 20px); // Pour afficher maximum 4 colonnes avec espacement entre les cases
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f1750ee0;
+
+    .id {
+      color: #ffffff;
+    }
+    }
+
+    h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      text-align: center;
+      color: #512da8;
+    }
+    .id {
+      color: #f1750e;
+    }
+  }
+}

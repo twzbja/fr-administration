@@ -1,0 +1,14 @@
+<app-nav [isLogged]="isLoggedIn"></app-nav>
+
+<div class="association-info">
+  <h1>Liste des associations</h1>
+</div>
+
+<button class="btn-add-association" routerLink="/nouvellAssociation">+</button>
+
+<div class="cases">
+  <div class="case" *ngFor="let association of associations" [style.max-width]="'350px'" (click)="goToAssociationProfile(association.id)" >
+    <h2>{{ association.name }}</h2>
+    <h2 class="id">ID associations :{{ association.id }}</h2>
+  </div>
+</div>

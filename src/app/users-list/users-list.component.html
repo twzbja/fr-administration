@@ -1,0 +1,14 @@
+<app-nav [isLogged]="isLoggedIn"></app-nav>
+
+<div class="user-info">
+  <h1>Liste des utilisateurs</h1>
+</div>
+
+<button class="btn-add-user" routerLink="/nouveauUser">+</button>
+
+<div class="cases">
+  <div class="case" *ngFor="let user of users" [style.max-width]="'350px'" (click)="goToUserProfile(user.id)">
+    <h2> {{ user.firstname }} {{ user.lastname }}</h2>
+    <h2 class="id">ID user : {{ user.id }}</h2>
+  </div>
+</div>
