@@ -29,4 +29,11 @@ export class UserInput {
         type: String,
     })
     public password: string;
+
+    @ApiProperty({
+        description: 'The email of the user',
+        example: "Junior@gmail.com",
+        type: String,
+    })
+    public email: string;
 }

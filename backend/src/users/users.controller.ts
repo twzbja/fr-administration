@@ -54,12 +54,12 @@ export class UsersController {
     //cree un user et le renvoyer 
     //sinon envoyer une http exception pour signaler que la requete est mauvaise 
     async create(@Body() input: UserInput): Promise<User> {
-        try {
-            return this.service.create(input.firstname, input.lastname, input.age, input.password);
-        } catch (DOMException) {
+        let ptr = await this.service.create(input.firstname, input.lastname,input.email,input.age,input.password);
+        if (ptr == null) {
             throw new HttpException(`wrong body parameters, go to /api to check the correct parmeters`, HttpStatus.BAD_REQUEST);
+        } else {
+            return(ptr);
         }
-        
     }
 
     //Regroupement sous le tag

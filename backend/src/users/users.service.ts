@@ -34,21 +34,22 @@ export class UsersService {
     }
     
     //creer un utilisateur et renvoyer l'utilisateur sinon envoyer une exeption pour signaler les param mal renseigner
-    public async create(nom: string, prenom: string, age: number, password: string): Promise<User> {
+    public async create(nom: string, prenom: string, email:string,age: number, password: string): Promise<User> {
         const saltOrRounds = 10;
         const hash = await bcrypt.hash(password, saltOrRounds);
         const newUser = await this.UsersRepository.create({
             lastname: prenom,
             firstname: nom,
             age: age,
-            password: hash
+            password: hash,
+            email:email
         }
         );
         try {
             await this.UsersRepository.save(newUser);
             return(newUser);
         } catch (error) {
-            throw new DOMException("param incomplet ou incorrect");
+            return(null);
         } 
     }
     

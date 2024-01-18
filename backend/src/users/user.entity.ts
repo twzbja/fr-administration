@@ -17,6 +17,9 @@ export class User {
 
     @Column()
     public password: string;
+
+    @Column()
+    public email: string;
     
     //declaration de la relation de User à la classe Role
     @OneToMany(type => Role, roles => roles.idUser)
