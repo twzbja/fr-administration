@@ -12,7 +12,7 @@ En résumé, Apache JMeter est un outil fiable et polyvalent pour les tests de c
 
 ### Image du test de performance et de charge avec Apache JMeter
 
-![Component](assets/ApacheJmeter.png)
+![Component](img/ApacheJmeter.png)
 
 ### Analyse des résultats du test de performance et de charge avec Apache JMeter
 
@@ -32,7 +32,7 @@ Cela dit, il est important de rappeler que ces résultats ne sont qu'une estimat
 
 ### Image du monitoring, de la télémétrie ou du tracing avec Prometheus
 
-![Component](assets/prometheus.png)
+![Component](img/prometheus.png)
 
 ## CHOIX OUTIL DE SURVEILLANCE DES REQUÊTES/SECONDES ET DUREE DE LA REQUETE
 
@@ -42,7 +42,7 @@ Cela dit, il est important de rappeler que ces résultats ne sont qu'une estimat
 
 ### Image du monitoring, de la télémétrie ou du tracing avec Grafana
 
-![Component](assets/grafana.png)
+![Component](img/grafana.png)
 
 
 
