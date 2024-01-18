@@ -1,0 +1,5 @@
+## Fonctionnalité additionnelle
+* La fonctionnalité supplémentaire de mon application permet l'envoi de messages broadcast d'un membre d'une association à tous les autres membres de l'association.
+* ***Le processus*** : Dans le processus, je saisis le message depuis mon profil et le transmets. Le message doit s'afficher sur les profils des autres membres et leur être également envoyé par e-mail. L'affichage du message sur leur profil est géré par le microservice MessageManager, qui sauvegarde ces messages et les met à disposition du front via des endpoints. De plus, l'envoi du même message aux adresses e-mail des membres de l'association est réalisé par MessageManager. En plus de sauvegarder les messages, il les envoie vers une file d'attente RabbitMQ pour que Quarkus puisse les traiter.
+
+* ***Etat*** : Quant à l'état actuel de la fonctionnalité, elle n'a pas encore été intégrée au projet. Bien que la conception et le développement soient achevés, je ne l'ai pas encore validée, car elle n'a pas fait l'objet de tests suffisants.

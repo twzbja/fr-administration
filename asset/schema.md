@@ -1,0 +1,1 @@
+![Component](assets/architecture.drawio.png)
