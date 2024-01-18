@@ -1,7 +1,9 @@
+
 # Architecture logicielle
 
 # Rapport technique
 
+Ce rapport presente les différentes fonctionnalités apportées au projet mais aussi les avancés de ces dernières.
 
 - 1 - [Schéma de notre architecture de microservices](doc/schema.md)
 
