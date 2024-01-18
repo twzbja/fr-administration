@@ -7,6 +7,7 @@ import { Role } from './role.entity';
 import { RoleInput } from './role.input';
 import { RoleUpdate } from './role.update';
 import { RolesService } from './roles.service';
+import { MessageService } from 'src/message/message.service';
 
 @Controller('roles')
 export class RolesController {
@@ -14,7 +15,9 @@ export class RolesController {
     constructor(
         private service: RolesService,
         //@Inject(forwardRef(() => UsersService))
-        private UserService:UsersService
+        private UserService:UsersService,
+        private messageService:MessageService
+
     ) {}
 
     //Regroupement sous le tag
@@ -33,11 +36,16 @@ export class RolesController {
         description: 'The role has been successfully created.'
     })
     //creer un role et le renvoyer sinon envoyer une exeption s'il y'a contraint key fail
-    create(@Body() input: RoleInput): Promise<Role> {
-        try {
-            return this.service.create(input.idUser, input.idAssociation,input.name);
-        } catch (DOMException) {
+    async create(@Body() input: RoleInput): Promise<Role> {
+        let ptr = await this.service.create(input.idUser, input.idAssociation,input.name);
+        if (ptr==null) {
             throw new HttpException(` fail to create role with the couple (idUser,IdAssociation)=${input.idUser} ${input.idAssociation} the role may already existe or the user or association may not existe`, HttpStatus.CONFLICT);
+        } else {
+            let user = await this.UserService.getById(ptr.idUser);
+            let assoc_name = await (await ptr.association).name;
+            let role = await ptr.name;
+            this.messageService.sendMessageForAddingRole(role,assoc_name,user);
+            return(ptr);
         }
     }
 
@@ -45,11 +53,16 @@ export class RolesController {
     @ApiTags('Mettre à jour un role')
     @Put(':idUser/:idAssociation')
     //mettre a jour un role s'il existe sinon envoyer une exeption
-    update(@Param() parameter: RoleInput,@Body() input: RoleUpdate): Promise<Role> {
-        try {
-            return this.service.update(parameter.idUser, parameter.idAssociation, input.name);
-        } catch (DOMException) {
+    async update(@Param() parameter: RoleInput,@Body() input: RoleUpdate): Promise<Role> {
+        let ptr = await this.service.update(parameter.idUser, parameter.idAssociation, input.name);
+        if (ptr==null) {
             throw new HttpException(` fail to update the role with the couple (idUser,IdAssociation)=${parameter.idUser} ${parameter.idAssociation} the role  may note existe`, HttpStatus.NOT_FOUND);
+        } else {
+            let user = await this.UserService.getById(ptr.idUser);
+            let assoc_name = await (await ptr.association).name;
+            let role = await ptr.name;
+            this.messageService.sendMessageForAddingRole(role,assoc_name,user);
+            return(ptr);
         }
     }
 

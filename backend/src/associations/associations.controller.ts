@@ -8,7 +8,7 @@ import { AssociationDTO } from './association.dto';
 import { Member } from './association.member';
 import { Minute } from 'src/minutes/minute.entity';
 import { MinutesService } from 'src/minutes/minutes.service';
-import { User } from 'src/users/user.entity';
+import { MessageService } from 'src/message/message.service';
 
 @ApiTags('associations')
 @Controller('associations')
@@ -16,7 +16,8 @@ export class AssociationsController {
     
     constructor(
         private service: AssociationsService,
-        private MinuteService:MinutesService
+        private MinuteService:MinutesService,
+        private messageService:MessageService
     ) {}
     
     //Regroupement sous le tag
@@ -59,11 +60,13 @@ export class AssociationsController {
         description: 'The association has been successfully created.'
     })
     //creer une association et la renvoyer sion une exeption si les param sont incorrectes: si les id des users sont incorrectes
-    create(@Body() input: AssociationInput): Promise<Association> {
-        try {
-            return this.service.create(input.name, input.idUsers);
-        } catch (DOMException) {
+    async create(@Body() input: AssociationInput): Promise<Association> {
+        let ptr = await this.service.create(input.name, input.idUsers);
+        if (ptr == null) {
             throw new HttpException(`wrong body parameters : the users may not exist , see .../api to correct it`, HttpStatus.BAD_REQUEST);
+        } else {
+            await this.messageService.sendGroupeMessageToAssocUsers(ptr);
+            return(ptr);
         }
     }
 
@@ -104,4 +107,5 @@ export class AssociationsController {
     async getMinuteByAssociationId(@Param() parameter: AssociationParam): Promise<Minute[]> {
         return this.MinuteService.getMinuteByAssociationId(+parameter.id);   
     }
+    
 }

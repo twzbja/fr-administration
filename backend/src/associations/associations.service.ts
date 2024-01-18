@@ -27,6 +27,12 @@ export class AssociationsService {
         return(dtolist);
     }
 
+    async getName(id: number): Promise<string> {
+        let assoc = await this.getById(id);
+        return assoc.name;
+    }
+
+
     //envoyer  la liste des membres d'une association ou une liste vide eventuellement
     //sinon envoyer une exeption si l'association n'est pas trouvé
     async getMembers(id: number): Promise<Member[]> {
@@ -74,17 +80,20 @@ export class AssociationsService {
 
     //creation d'une association
     async create(nom: string, idUsers: number[]): Promise <Association> {
-        const tabl = this.AssociationRepostitory.create({
-          name:nom
-        });
-
-        if(idUsers){
-          for(let i=0; i<idUsers.length;i++){
-            (await tabl.users)[i]=(await this.service.getById(idUsers[i]))
-          }
+        try {
+            const tabl = this.AssociationRepostitory.create({
+                name:nom
+            })
+            if(idUsers){
+                for(let i=0; i<idUsers.length;i++){
+                    (await tabl.users)[i]=(await this.service.getById(idUsers[i]))
+                }
+            }
+            await this.AssociationRepostitory.save(tabl);
+            return(tabl);
+        } catch (error) {
+            return(null);
         }
-        await this.AssociationRepostitory.save(tabl);
-        return(tabl);
       }
 
     //la classe mapMember qui envoie un membre d'une association à partir d'un user 
