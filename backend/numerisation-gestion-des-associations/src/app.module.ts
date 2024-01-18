@@ -13,14 +13,23 @@ import { RolesModule } from './roles/roles.module';
 import { Minute } from './minutes/minute.entity';
 
 @Module({
-  imports:[
+  imports: [
     TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'mydatabase.db',
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: 'rootDB',
+      database: 'my_application',
       entities: [Association, User, Minute, Role],
-      synchronize: true,
+      synchronize: true, // Assurez-vous de le désactiver en production
     }),
-  UsersModule, AssociationsModule, AuthModule, MinutesModule, RolesModule],
+    UsersModule,
+    AssociationsModule,
+    AuthModule,
+    MinutesModule,
+    RolesModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
