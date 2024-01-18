@@ -1,0 +1,9 @@
+FROM openjdk:17-slim as build
+COPY . /twzbja/quarkus-message-dispacher
+WORKDIR /twzbja/quarkus-message-dispacher
+RUN ./mvnw package -Pnative -Dquarkus.native.container-build=true 
+
+FROM registry.access.redhat.com/ubi8/ubi-minimal:8.2
+WORKDIR /work/
+COPY --from=build /twzbja/quarkus-message-dispacher/target/*-runner /work/application
+EXPOSE 8082

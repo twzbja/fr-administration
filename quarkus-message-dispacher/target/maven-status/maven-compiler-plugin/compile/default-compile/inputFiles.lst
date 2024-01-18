@@ -1,0 +1,6 @@
+/home/darkone/Bureau/Mes_Projet_Esir/TP/TP_Architecture_logiciel/numerisation-gestion-des-associations-version2/quarkus-message-dispacher/src/main/java/akai/arrow/ConsomeRbtmqMsgToSendEmail.java
+/home/darkone/Bureau/Mes_Projet_Esir/TP/TP_Architecture_logiciel/numerisation-gestion-des-associations-version2/quarkus-message-dispacher/src/main/java/akai/arrow/services/MessageService.java
+/home/darkone/Bureau/Mes_Projet_Esir/TP/TP_Architecture_logiciel/numerisation-gestion-des-associations-version2/quarkus-message-dispacher/src/main/java/akai/arrow/GreetingResource.java
+/home/darkone/Bureau/Mes_Projet_Esir/TP/TP_Architecture_logiciel/numerisation-gestion-des-associations-version2/quarkus-message-dispacher/src/main/java/akai/arrow/services/Message.java
+/home/darkone/Bureau/Mes_Projet_Esir/TP/TP_Architecture_logiciel/numerisation-gestion-des-associations-version2/quarkus-message-dispacher/src/main/java/akai/arrow/services/MailSender.java
+/home/darkone/Bureau/Mes_Projet_Esir/TP/TP_Architecture_logiciel/numerisation-gestion-des-associations-version2/quarkus-message-dispacher/src/main/java/akai/arrow/services/ServiceUtil.java

@@ -1,0 +1,5 @@
+akai/arrow/services/Message.class
+akai/arrow/ConsomeRbtmqMsgToSendEmail.class
+akai/arrow/services/ServiceUtil.class
+akai/arrow/GreetingResource.class
+akai/arrow/services/MailSender.class
