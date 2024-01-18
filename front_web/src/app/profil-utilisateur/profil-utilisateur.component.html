@@ -10,6 +10,7 @@
         <h2><strong>Prénom :</strong> {{user.firstname}}</h2>
         <h2><strong>Nom :</strong> {{user.lastname}}</h2>
         <h2><strong>Age :</strong> {{user.age}}</h2>
+        <h2><strong>Email :</strong> {{user.email}}</h2>
         <h2><strong>Role/Association :</strong></h2>
         <ul>
             <li *ngFor="let role of roles">{{ role.name }} dans l'association {{ role.idAssociation}}</li>
