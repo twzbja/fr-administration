@@ -26,12 +26,20 @@ AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
             typeorm_1.TypeOrmModule.forRoot({
-                type: 'sqlite',
-                database: 'mydatabase.db',
+                type: 'mysql',
+                host: 'localhost',
+                port: 3306,
+                username: 'root',
+                password: 'password',
+                database: 'mydatabase',
                 entities: [association_entity_1.Association, user_entity_1.User, minute_entity_1.Minute, role_entity_1.Role],
                 synchronize: true,
             }),
-            users_module_1.UsersModule, associations_module_1.AssociationsModule, auth_module_1.AuthModule, minutes_module_1.MinutesModule, roles_module_1.RolesModule
+            users_module_1.UsersModule,
+            associations_module_1.AssociationsModule,
+            auth_module_1.AuthModule,
+            minutes_module_1.MinutesModule,
+            roles_module_1.RolesModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

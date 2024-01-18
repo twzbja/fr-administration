@@ -19,8 +19,8 @@ import { Minute } from './minutes/minute.entity';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: 'rootDB',
-      database: 'my_application',
+      password: 'password',
+      database: 'mydatabase',
       entities: [Association, User, Minute, Role],
       synchronize: true, // Assurez-vous de le désactiver en production
     }),
