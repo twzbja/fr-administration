@@ -1,8 +1,9 @@
-package akai.arrow;
+package twzbja.services;
 
-import akai.arrow.services.MailSender;
-import akai.arrow.services.ServiceUtil;
 import io.quarkus.mailer.Mailer;
+import twzbja.services.services.MailSender;
+import twzbja.services.services.ServiceUtil;
+
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

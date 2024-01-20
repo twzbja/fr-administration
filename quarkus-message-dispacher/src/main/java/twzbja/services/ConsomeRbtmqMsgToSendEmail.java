@@ -1,8 +1,5 @@
-package akai.arrow;
+package twzbja.services;
 
-import akai.arrow.services.MailSender;
-import akai.arrow.services.Message;
-import akai.arrow.services.ServiceUtil;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -19,6 +16,9 @@ import com.oracle.svm.core.annotate.Inject;
 
 import io.quarkus.mailer.Mailer;
 import io.vertx.core.json.JsonObject;
+import twzbja.services.services.MailSender;
+import twzbja.services.services.Message;
+import twzbja.services.services.ServiceUtil;
  
 @ApplicationScoped
 public class ConsomeRbtmqMsgToSendEmail {
@@ -53,7 +53,6 @@ public class ConsomeRbtmqMsgToSendEmail {
             String topic=msg.topic;
             String message=msg.message;
 
-            //System.out.println(msg.destinator);
             //
             Mail mail= Mail.withText(email,topic,message);
             lock.lock();

@@ -1,4 +1,4 @@
-package akai.arrow.services;
+package twzbja.services.services;
 
 import io.quarkus.mailer.Mail;
 import io.quarkus.mailer.Mailer;
