@@ -38,9 +38,9 @@ public class ConsomeRbtmqMsgToSendEmail {
     public void consume(byte[] p) {
         
         //Extraction de donnée dans le flux recu par le canal
-        String string_data = new String(p, StandardCharsets.UTF_8);
-        JsonObject jsonobject_data = new JsonObject(new String(string_data));
-        JsonObject data = jsonobject_data.getJsonObject("data");
+        String stringData = new String(p, StandardCharsets.UTF_8);
+        JsonObject jsonObjectData = new JsonObject(stringData);
+        JsonObject data = jsonObjectData.getJsonObject("data");
         //Traitement de la donnée par la classe ServiceUtil
         Message msg = this.util.mapData(data);
         System.out.println("**Message recu :"+msg.toString());
