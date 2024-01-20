@@ -4,8 +4,7 @@ WORKDIR /twzbja/front_web/src/app
 
 COPY package*.json ./
 
-RUN npm install --only=production
-RUN npm install -g @angular/cli@15.0.4
+RUN npm install
 
 COPY . .
 
