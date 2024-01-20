@@ -1,4 +1,4 @@
-package akai.arrow;
+package twzbja.test;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
